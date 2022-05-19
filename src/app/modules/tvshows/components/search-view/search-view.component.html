@@ -1,0 +1,37 @@
+<form [formGroup]="viewSearch">
+  <h2>Resultados de Busqueda</h2>
+  <div formArrayName="shows" *ngFor="let viewShow of getViewShows.controls; let i = index">
+    <div [formGroupName]="i">
+      <div>
+        <img src="{{showsListFromParent[i].poster}}" alt="">
+      </div>
+      <div>
+        <mat-form-field appearance="legacy">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title"/>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Type</mat-label>
+          <input matInput formControlName="type"/>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="legacy">
+          <mat-label>Year</mat-label>
+          <input matInput formControlName="year"/>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="legacy">
+          <mat-label>Comments</mat-label>
+          <textarea cols="30" rows="15" matInput formControlName="comments"></textarea>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-raised-button color="primary">Favorito</button>
+      </div>
+    </div>
+  </div>
+</form>

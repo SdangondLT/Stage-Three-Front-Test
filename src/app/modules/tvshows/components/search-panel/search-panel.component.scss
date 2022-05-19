@@ -1,0 +1,22 @@
+.searchPanelForm {
+  display: grid;
+  grid-template-columns: 24% 24% 24% 24%;
+  margin: 10px;
+  padding: 10px;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.searchPanelForm__input {
+  display: flex;
+  margin: auto;
+
+}
+
+.searchPanelForm__btn{
+  margin: 45px;
+}

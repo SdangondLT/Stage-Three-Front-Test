@@ -1,0 +1,17 @@
+<div>
+  <div>
+    <app-search-panel
+      (searchShowsEmitter)="searchShows($event)"
+    >
+    </app-search-panel>
+  </div>
+  <div>
+    <app-search-view
+      [showsListFromParent]="showsListFromParent"
+
+    ></app-search-view>
+  </div>
+  <div>
+    <app-favorites-view></app-favorites-view>
+  </div>
+</div>
