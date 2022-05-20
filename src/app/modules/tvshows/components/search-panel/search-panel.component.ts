@@ -22,7 +22,7 @@ export class SearchPanelComponent implements OnInit {
   constructor(private showsService: TvShowsService,  private formBuilder: FormBuilder ) {
     this.selectedValue = '';
     this.showForm = this.formBuilder.group({
-      movie: [""],
+      movie: ["", Validators.required],
       serie: [""]
       //,episode: ['']
     });
