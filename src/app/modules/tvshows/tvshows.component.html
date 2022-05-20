@@ -1,17 +1,22 @@
-<div>
-  <div>
+<div class="container">
+  <div class="searchPanel">
     <app-search-panel
       (searchShowsEmitter)="searchShows($event)"
     >
     </app-search-panel>
   </div>
-  <div>
-    <app-search-view
+  <div class="viewsSection">
+    <div class="resultView">
+      <app-search-view
+        [showsListFromParent]="showsListFromParent"
+        (addFavoritesEmitter)="addFavorites($event)"
+      ></app-search-view>
+    </div>
+    <div class="favoritesView">
+      <app-favorites-view
       [showsListFromParent]="showsListFromParent"
-
-    ></app-search-view>
-  </div>
-  <div>
-    <app-favorites-view></app-favorites-view>
+      (removeFavoritesEmitter)="removeFavorites($event)"
+      ></app-favorites-view>
+    </div>
   </div>
 </div>

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ShowsInfoInterface } from '@app-models/shows.model';
 import { TvShowsService } from '@app-services/tv-shows.service';
 
 @Component({
@@ -23,7 +22,7 @@ export class SearchPanelComponent implements OnInit {
   constructor(private showsService: TvShowsService,  private formBuilder: FormBuilder ) {
     this.selectedValue = '';
     this.showForm = this.formBuilder.group({
-      movie: ["", Validators.required],
+      movie: [""],
       serie: [""]
       //,episode: ['']
     });

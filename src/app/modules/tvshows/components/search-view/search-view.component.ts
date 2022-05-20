@@ -10,14 +10,12 @@ import { TvShowsService } from '@app-services/tv-shows.service';
 })
 export class SearchViewComponent implements  OnChanges {
 
- // shows: ShowsInfoInterface ;
   viewSearch: FormGroup;
-  drawingShowsData: ShowsInfoInterface[];
   @Input() showsListFromParent: ShowsInfoInterface[];
+  @Output() addFavoritesEmitter = new EventEmitter<number>();
 
   constructor(private showsService: TvShowsService,  private fb: FormBuilder) {
     this.showsListFromParent = [];
-    this.drawingShowsData = [];
     this.viewSearch = this.fb.group({
       poster: [""],
       shows: this.fb.array([]),
@@ -35,11 +33,11 @@ export class SearchViewComponent implements  OnChanges {
       type: [data.type],
       year: [data.year],
       comments: [data.comments],
+      selected: [data.selected]
     })
   }
 
   ngOnInit(): void {
-    this.drawingShowsData = this.showsListFromParent;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -53,5 +51,9 @@ export class SearchViewComponent implements  OnChanges {
     }
   }
 
-
+  addFavorites(index: number){
+    console.log('index',index)
+    this.addFavoritesEmitter.emit(index);
+    this.getViewShows.at(index).get('selected')?.patchValue('true');
+  }
 }

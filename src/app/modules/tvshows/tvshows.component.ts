@@ -19,7 +19,6 @@ export class TvshowsComponent implements OnInit {
     console.log('movie', movie)
     this.showsService.getTvShowsFromApi(movie).subscribe(
       (result: ShowsInterface) => {
-        //console.log('result', result);
         if (result.error){
           console.log('result.data', result.data);
           this.showsListFromParent = result.data.results
@@ -35,4 +34,13 @@ export class TvshowsComponent implements OnInit {
 
   }
 
+  addFavorites(index: number){
+    console.log('ha cambiado a true')
+    this.showsListFromParent[index].selected = true;
+  }
+
+  removeFavorites(index: number){
+    console.log('ha cambiado a true')
+    this.showsListFromParent[index].selected = false;
+  }
 }

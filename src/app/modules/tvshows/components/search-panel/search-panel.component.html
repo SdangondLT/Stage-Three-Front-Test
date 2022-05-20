@@ -1,31 +1,33 @@
 <form class="searchPanelForm" [formGroup]="showForm">
-  <h2>Panel de Busqueda</h2>
-  <div class="dropdown">
-    <mat-form-field appearance="fill">
-      <mat-label>Nueva Busqueda</mat-label>
-      <mat-select [(ngModel)]="selectedValue" name="show">
-        <mat-option *ngFor="let show of shows" [value]="show.value">
-          {{show.viewValue}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <!-- <p> Selected option: {{selectedValue}} </p> -->
-  </div>
-
-
-  <div class="searchPanelForm__input">
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Buscar Pelicula</mat-label>
-      <input matInput formControlName="movie">
-    </mat-form-field>
-  </div>
-  <div class="searchPanelForm__input">
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Año de estreno</mat-label>
-      <input matInput formControlName="serie">
-    </mat-form-field>
-  </div>
-  <div class="searchPanelForm__btn">
-    <button mat-raised-button color="primary" (click)="searchShows()">Buscar</button>
+  <h2 class="titleCenter">Search Panel</h2>
+  <div class="inputsPanel">
+    <div class="searchPanelForm dropdown">
+      <mat-form-field appearance="fill">
+        <mat-label>New Search</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let show of shows" [value]="show.value">
+            {{show.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="searchPanelForm">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Search Movie</mat-label>
+        <input matInput formControlName="movie">
+        <mat-error *ngIf="getMovie?.hasError('required')">
+          Field is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="searchPanelForm">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Release Year</mat-label>
+        <input matInput formControlName="serie">
+      </mat-form-field>
+    </div>
+    <div class="searchPanelForm">
+      <button mat-raised-button color="primary" (click)="searchShows()">Search</button>
+    </div>
   </div>
 </form>

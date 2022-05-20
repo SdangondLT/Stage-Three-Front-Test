@@ -1,0 +1,25 @@
+.container{
+  margin: 10px;
+}
+
+.viewsSection {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 12px;
+  padding: 10px;
+}
+
+.resultView{
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+
+}
+
+.favoritesView{
+  border: 1px solid rgb(0, 255, 157);
+
+}

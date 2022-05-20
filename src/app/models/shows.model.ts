@@ -16,6 +16,7 @@ export interface ShowsInfoInterface {
   selected: boolean;
   id: string;
   comments: string;
+  registrationDate: Date;
 }
 
 
