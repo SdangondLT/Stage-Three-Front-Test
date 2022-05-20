@@ -31,7 +31,11 @@
           </mat-form-field>
         </div>
         <div>
-          <button mat-raised-button color="{{!showsListFromParent[i].selected ? 'primary' : 'accent'}}" (click)="addFavorites(i)">{{!showsListFromParent[i].selected ? 'Favorites' : 'Add to Favorites'}}</button>
+            <button mat-raised-button
+              color="{{!showsListFromParent[i].selected ? 'primary' : 'accent'}}"
+              (click)="addFavorites(i)">
+              {{!showsListFromParent[i].selected ? 'Favorites' : 'Added to Favorites'}}
+            </button>
         </div>
       </div>
     </div>

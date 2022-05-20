@@ -15,22 +15,19 @@ export class FavoritesViewComponent implements OnChanges {
 
   constructor(private showsService: TvShowsService,  private fb: FormBuilder ) {
     this.showsListFavorites = [];
-
   }
-
-
 
   ngOnInit(): void {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('vista de fav', this.showsListFavorites)
   }
 
-  // removeFavorites(index: number){
-  //   console.log('remove index',index)
-  //   this.removeFavoritesEmitter.emit(index);
-  //   this.getFavoritesShows.at(index).get('selected')?.patchValue('false');
-  // }
+  removeFavorites(index: number){
+    console.log('remove index',index)
+    this.removeFavoritesEmitter.emit(index);
+
+    this.showsListFavorites.splice(index, 1);
+  }
 
 }

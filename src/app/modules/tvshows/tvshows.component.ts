@@ -33,16 +33,16 @@ export class TvshowsComponent implements OnInit {
 
   }
 
-  addFavorites(index: number){
+  addFavorites(showToFavorite: ShowsInfoInterface){
     console.log('ha cambiado a true en el padre')
-    this.showsListFromParent[index].selected = true;
-    //busca ese obj en la lista del servicio y guardalo en un array
-    this.showsListFavorites.push(this.showsListFromParent[index]);
+    showToFavorite.selected = true;
+    this.showsListFavorites.push(showToFavorite);
     console.log('lo que deberia recibir el hijo', this.showsListFavorites);
+    console.log('lo que deberia showToFavorite', showToFavorite);
   }
 
-  // removeFavorites(index: number){
-  //   console.log('ha cambiado a true')
-  //   this.showsListFromParent[index].selected = false;
-  // }
+  removeFavorites(index: number){
+    console.log('ha cambiado a true')
+    this.showsListFromParent[index].selected = false;
+  }
 }

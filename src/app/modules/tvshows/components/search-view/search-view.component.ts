@@ -11,11 +11,13 @@ import { TvShowsService } from '@app-services/tv-shows.service';
 export class SearchViewComponent implements  OnChanges {
 
   viewSearch: FormGroup;
+  showToFavorite: ShowsInfoInterface | undefined;
   @Input() showsListFromParent: ShowsInfoInterface[];
-  @Output() addFavoritesEmitter = new EventEmitter<number>();
+  @Output() addFavoritesEmitter = new EventEmitter<ShowsInfoInterface>();
 
   constructor(private showsService: TvShowsService,  private fb: FormBuilder) {
     this.showsListFromParent = [];
+
     this.viewSearch = this.fb.group({
       poster: [""],
       showsArray: this.fb.array([]),
@@ -28,7 +30,7 @@ export class SearchViewComponent implements  OnChanges {
 
   showsFound (data: ShowsInfoInterface){
     return this.fb.group({
-      image: [data.poster],
+      poster: [data.poster],
       title: [data.title],
       type: [data.type],
       year: [data.year],
@@ -52,8 +54,18 @@ export class SearchViewComponent implements  OnChanges {
   }
 
   addFavorites(index: number){
-    this.addFavoritesEmitter.emit(index);
-    this.getViewShows.at(index).get('selected')?.patchValue('true');
+    this.showToFavorite = {
+      poster: this.getViewShows.at(index).value.poster,
+      title: this.getViewShows.at(index).value.title,
+      type: this.getViewShows.at(index).value.type,
+      year: this.getViewShows.at(index).value.year,
+      id: this.getViewShows.at(index).value.id,
+      comments: this.getViewShows.at(index).value.comments,
+      registrationDate: new Date(),
+      selected: true
+    }
+    this.addFavoritesEmitter.emit(this.showToFavorite);
+    console.log("addFavoritesShowToFavorite", this.showToFavorite)
   }
 
 }
