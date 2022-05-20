@@ -13,10 +13,10 @@ export interface ShowsInfoInterface {
   title: string;
   type: string;
   year: string;
-  selected: boolean;
   id: string;
   comments: string;
   registrationDate: Date;
+  selected: boolean;
 }
 
 

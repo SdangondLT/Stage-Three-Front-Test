@@ -24,7 +24,6 @@ export class SearchPanelComponent implements OnInit {
     this.showForm = this.formBuilder.group({
       movie: ["", Validators.required],
       serie: [""]
-      //,episode: ['']
     });
   }
 
@@ -40,5 +39,4 @@ export class SearchPanelComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

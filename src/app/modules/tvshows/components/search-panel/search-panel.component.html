@@ -9,6 +9,9 @@
             {{show.viewValue}}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="getMovie?.hasError('required')">
+          Field is <strong>required</strong>
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="searchPanelForm">

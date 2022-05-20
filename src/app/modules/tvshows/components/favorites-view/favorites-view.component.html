@@ -1,45 +1,74 @@
-<form [formGroup]="favoritesForm">
+<div class="favorites">
+  <h2 class="titleCenter">My Favorites Show</h2>
+  <div class="eachShow" *ngFor="let favoriteShow of showsListFavorites; let i = index">
+    <div class="favorites__number">#{{ i }}</div>
+    <div >
+      <span >Title: </span>{{ favoriteShow.title }}
+    </div>
+    <div >
+      <span >Type: </span>{{ favoriteShow.type }}
+    </div>
+    <div >
+      <span >Year: </span>{{ favoriteShow.year }}
+    </div>
+    <div >
+      <span >Comments: </span>{{ favoriteShow.comments }}
+    </div>
+    <div >
+      <span >Registration Date: </span>{{ favoriteShow.registrationDate }}
+    </div>
+
+    <div>
+      <!-- <button mat-raised-button color="primary" (click)="removeFavorites(i)">Delete</button> -->
+      <button mat-raised-button color="primary">Delete</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- <form>
   <h2 class="titleCenter">My Favorites</h2>
-  <div formArrayName="favoriteShows" *ngFor="let favoriteShow of getFavoritesShows.controls; let i = index">
-    <div [formGroupName]="i" class="eachShow">
+  <div *ngFor="let favoriteShow of showsListFavorites; let i = index">
+    <div class="eachShow" >
       <div class="showImage">
-        <img src="{{showsListFromParent[i].poster}}" alt="">
+        <img src="{{favoriteShow.poster}}" alt="">
       </div>
       <div class="showDetails">
         <div>
           <mat-form-field appearance="legacy">
             <mat-label>Title</mat-label>
-            <input matInput formControlName="title"/>
+            <input matInput {{favoriteShow.title}}/>
           </mat-form-field>
         </div>
         <div>
           <mat-form-field appearance="fill">
             <mat-label>Type</mat-label>
-            <input matInput formControlName="type"/>
+            <input matInput {{favoriteShow.type}}/>
           </mat-form-field>
         </div>
         <div>
           <mat-form-field appearance="legacy">
             <mat-label>Year</mat-label>
-            <input matInput formControlName="year"/>
+            <input matInput {{favoriteShow.year}}/>
           </mat-form-field>
         </div>
         <div>
           <mat-form-field appearance="legacy">
             <mat-label>Comments</mat-label>
-            <textarea cols="30" rows="15" matInput formControlName="comments"></textarea>
+            <textarea cols="30" rows="15" matInput {{favoriteShow.comments}}></textarea>
           </mat-form-field>
         </div>
         <div>
           <mat-form-field appearance="legacy">
             <mat-label>Registration Date</mat-label>
-            <textarea cols="30" rows="15" matInput formControlName="registrationDate"></textarea>
+            <input matInput {{favoriteShow.registrationDate}}/>
           </mat-form-field>
         </div>
         <div>
           <button mat-raised-button color="primary" (click)="removeFavorites(i)">Delete</button>
+          <button mat-raised-button color="primary">Delete</button>
         </div>
       </div>
     </div>
   </div>
-</form>
+</form> -->

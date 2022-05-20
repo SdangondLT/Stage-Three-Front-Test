@@ -9,18 +9,17 @@ import { TvShowsService } from '@app-services/tv-shows.service';
 })
 export class TvshowsComponent implements OnInit {
   showsListFromParent: ShowsInfoInterface[];
+  showsListFavorites: ShowsInfoInterface[];
 
   constructor(private showsService: TvShowsService) {
     this.showsListFromParent = [];
+    this.showsListFavorites = [];
   }
 
   searchShows(movie: string){
-    console.log('searchShows Papa')
-    console.log('movie', movie)
     this.showsService.getTvShowsFromApi(movie).subscribe(
       (result: ShowsInterface) => {
         if (result.error){
-          console.log('result.data', result.data);
           this.showsListFromParent = result.data.results
         } else {
           alert('too many results, write more!')
@@ -35,12 +34,15 @@ export class TvshowsComponent implements OnInit {
   }
 
   addFavorites(index: number){
-    console.log('ha cambiado a true')
+    console.log('ha cambiado a true en el padre')
     this.showsListFromParent[index].selected = true;
+    //busca ese obj en la lista del servicio y guardalo en un array
+    this.showsListFavorites.push(this.showsListFromParent[index]);
+    console.log('lo que deberia recibir el hijo', this.showsListFavorites);
   }
 
-  removeFavorites(index: number){
-    console.log('ha cambiado a true')
-    this.showsListFromParent[index].selected = false;
-  }
+  // removeFavorites(index: number){
+  //   console.log('ha cambiado a true')
+  //   this.showsListFromParent[index].selected = false;
+  // }
 }

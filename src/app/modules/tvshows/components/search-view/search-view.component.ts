@@ -18,12 +18,12 @@ export class SearchViewComponent implements  OnChanges {
     this.showsListFromParent = [];
     this.viewSearch = this.fb.group({
       poster: [""],
-      shows: this.fb.array([]),
+      showsArray: this.fb.array([]),
     });
   }
 
   get getViewShows() : FormArray {
-    return this.viewSearch.get('shows') as FormArray;
+    return this.viewSearch.get('showsArray') as FormArray;
   }
 
   showsFound (data: ShowsInfoInterface){
@@ -52,8 +52,8 @@ export class SearchViewComponent implements  OnChanges {
   }
 
   addFavorites(index: number){
-    console.log('index',index)
     this.addFavoritesEmitter.emit(index);
     this.getViewShows.at(index).get('selected')?.patchValue('true');
   }
+
 }

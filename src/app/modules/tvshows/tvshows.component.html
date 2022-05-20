@@ -14,9 +14,10 @@
     </div>
     <div class="favoritesView">
       <app-favorites-view
-      [showsListFromParent]="showsListFromParent"
-      (removeFavoritesEmitter)="removeFavorites($event)"
+      [showsListFavorites]="showsListFavorites"
+
       ></app-favorites-view>
+      <!-- (removeFavoritesEmitter)="removeFavorites($event)" -->
     </div>
   </div>
 </div>
