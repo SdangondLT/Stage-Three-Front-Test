@@ -9,18 +9,27 @@ import { TvShowsService } from '@app-services/tv-shows.service';
 })
 export class SearchPanelComponent implements OnInit {
 
-  selectedValue: string;
+  selectedValueDropdown: string;
   @Output() searchShowsEmitter = new EventEmitter<string>();
   showForm: FormGroup;
 
   shows: any[] = [
-    {value: 'movies', viewValue: 'Movies'},
-    {value: 'series', viewValue: 'Series'},
-    {value: 'episodes', viewValue: 'Episodes'},
+    {
+      value: 'movies',
+      viewValue: 'movies'
+    },
+    {
+      value: 'series',
+      viewValue: 'series'
+    },
+    {
+      value: 'episodes',
+      viewValue: 'episodes'
+    }
   ];
 
   constructor(private showsService: TvShowsService,  private formBuilder: FormBuilder ) {
-    this.selectedValue = '';
+    this.selectedValueDropdown = '';
     this.showForm = this.formBuilder.group({
       movie: ["", Validators.required],
       serie: [""]
@@ -38,5 +47,11 @@ export class SearchPanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  changeDropdown(value: any){
+    this.selectedValueDropdown = value;
+    console.log('entro')
+    console.log('valor del dropdown', value)
   }
 }

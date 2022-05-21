@@ -4,9 +4,9 @@
     <div class="searchPanelForm dropdown">
       <mat-form-field appearance="fill">
         <mat-label>New Search</mat-label>
-        <mat-select>
+        <mat-select (selectionChange)="changeDropdown($event.value)" >
           <mat-option *ngFor="let show of shows" [value]="show.value">
-            {{show.viewValue}}
+            {{show.viewValue | titlecase}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="getMovie?.hasError('required')">
@@ -16,7 +16,7 @@
     </div>
     <div class="searchPanelForm">
       <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Search Movie</mat-label>
+        <mat-label>{{"Buscar " | modifyText: selectedValueDropdown  }}</mat-label>
         <input matInput formControlName="movie">
         <mat-error *ngIf="getMovie?.hasError('required')">
           Field is <strong>required</strong>
