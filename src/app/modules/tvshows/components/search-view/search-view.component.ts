@@ -35,7 +35,8 @@ export class SearchViewComponent implements  OnChanges {
       type: [data.type],
       year: [data.year],
       comments: [data.comments],
-      selected: [data.selected]
+      selected: [data.selected],
+      id: [data.id]
     })
   }
 
@@ -65,7 +66,6 @@ export class SearchViewComponent implements  OnChanges {
       selected: true
     }
     this.addFavoritesEmitter.emit(this.showToFavorite);
-    console.log("addFavoritesShowToFavorite", this.showToFavorite)
   }
 
 }

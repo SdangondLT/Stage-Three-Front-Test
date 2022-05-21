@@ -30,15 +30,14 @@ export class TvshowsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
 
   addFavorites(showToFavorite: ShowsInfoInterface){
-    console.log('ha cambiado a true en el padre')
     showToFavorite.selected = true;
-    this.showsListFavorites.push(showToFavorite);
-    console.log('lo que deberia recibir el hijo', this.showsListFavorites);
-    console.log('lo que deberia showToFavorite', showToFavorite);
+    const addedShowFavorite = this.showsListFavorites.findIndex((element: ShowsInfoInterface) => element.id === showToFavorite.id);
+    if(addedShowFavorite === -1){
+      this.showsListFavorites.push(showToFavorite);
+    }
   }
 
   removeFavorites(index: number){

@@ -23,7 +23,7 @@
       </div>
       <div>
         <span >Registration Date: </span>
-        {{ favoriteShow.registrationDate }}
+        {{ favoriteShow.registrationDate | date: 'hh:mm:ss a' }}
       </div>
       <div>
         <button mat-raised-button color="primary" (click)="removeFavorites(i)">Delete</button>
