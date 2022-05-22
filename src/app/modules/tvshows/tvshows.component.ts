@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ShowsInfoInterface, ShowsInterface, ShowsListResponse } from '@app-models/shows.model';
+import { ParametersForApiInterface, ShowsInfoInterface, ShowsInterface, ShowsListResponse } from '@app-models/shows.model';
 import { TvShowsService } from '@app-services/tv-shows.service';
 
 @Component({
@@ -16,11 +16,14 @@ export class TvshowsComponent implements OnInit {
     this.showsListFavorites = [];
   }
 
-  searchShows(movie: string){
-    this.showsService.getTvShowsFromApi(movie).subscribe(
+  searchShows(value: ParametersForApiInterface){
+    this.showsService.getTvShowsFromApi(value.title, value.type, value.year).subscribe(
       (result: ShowsInterface) => {
+        console.log('antes del id', this.showsListFromParent)
         if (result.error){
           this.showsListFromParent = result.data.results
+          console.log('despues del id', this.showsListFromParent)
+
         } else {
           alert('too many results, write more!')
         }

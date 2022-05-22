@@ -19,4 +19,10 @@ export interface ShowsInfoInterface {
   selected: boolean;
 }
 
+export interface ParametersForApiInterface {
+  title: string;
+  type: string;
+  year: string;
+}
+
 

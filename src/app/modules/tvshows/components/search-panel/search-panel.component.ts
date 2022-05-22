@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ParametersForApiInterface } from '@app-models/shows.model';
 import { TvShowsService } from '@app-services/tv-shows.service';
 
 @Component({
@@ -10,13 +11,13 @@ import { TvShowsService } from '@app-services/tv-shows.service';
 export class SearchPanelComponent implements OnInit {
 
   selectedValueDropdown: string;
-  @Output() searchShowsEmitter = new EventEmitter<string>();
+  @Output() searchShowsEmitter = new EventEmitter<ParametersForApiInterface>();
   validationButton: boolean;
   showForm: FormGroup;
 
   shows: any[] = [
     {
-      value: 'movies',
+      value: 'movie',
       viewValue: 'movies'
     },
     {
@@ -24,10 +25,16 @@ export class SearchPanelComponent implements OnInit {
       viewValue: 'series'
     },
     {
-      value: 'episodes',
+      value: 'episode',
       viewValue: 'episodes'
     }
   ];
+
+  parametersForApi: ParametersForApiInterface = {
+    title: "",
+    type: "",
+    year: ""
+  };
 
   constructor(private showsService: TvShowsService,  private formBuilder: FormBuilder ) {
     this.selectedValueDropdown = '';
@@ -46,11 +53,19 @@ export class SearchPanelComponent implements OnInit {
   get getYear(){
     return this.showForm.get("year");
   }
+  get getDropDownForm(){
+    return this.showForm.get("dropDownForm");
+  }
 
   searchShows(){
     console.log('searchShows')
     console.log(this.getShowToSearch!.value)
-    this.searchShowsEmitter.emit(this.getShowToSearch!.value);
+    this.parametersForApi = {
+      title: this.getShowToSearch!.value,
+      type: this.getDropDownForm!.value,
+      year: this.getYear!.value
+    }
+    this.searchShowsEmitter.emit(this.parametersForApi);
   }
 
   ngOnInit(): void {
@@ -66,13 +81,7 @@ export class SearchPanelComponent implements OnInit {
     } else {
       console.log(value)
       this.getYear?.disable();
-    }
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log("changes", changes);
-    if (changes['validationButton']) {
-      this.validationButton = changes['validationButton'].currentValue;
+      this.getYear?.setValue('');
     }
   }
 

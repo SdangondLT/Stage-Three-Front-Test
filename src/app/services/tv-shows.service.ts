@@ -11,9 +11,10 @@ export class TvShowsService {
 
   constructor(private http: HttpClient) { }
 
-  public getTvShowsFromApi(query: string): Observable<ShowsInterface> {
+  public getTvShowsFromApi(query: string, type: string, year: string): Observable<ShowsInterface> {
     console.log('entrando al servicio');
-    const url = `${environment.URL}/?s=${query}&apikey=${environment.OMDB_APIKEY}`;
+    const url = `${environment.URL}/?s=${query}&type=${type}&y=${year}&apikey=${environment.OMDB_APIKEY}`;
+    console.log('entrando a URL', url);
     return this.http.get<any>(url).pipe(map(dataApi => {
       dataApi.error = dataApi['Response'];
       dataApi.data = {};
