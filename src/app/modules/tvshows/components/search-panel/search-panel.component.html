@@ -17,7 +17,7 @@
     <div class="searchPanelForm">
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>{{"Buscar " | modifyText: selectedValueDropdown  }}</mat-label>
-        <input matInput formControlName="showToSearch">
+        <input matInput formControlName="showToSearch" (change)="onChangeEventInputSearch($event)">
         <mat-error *ngIf="getShowToSearch?.hasError('required')">
           Field is <strong>required</strong>
         </mat-error>
@@ -34,7 +34,7 @@
       </mat-form-field>
     </div>
     <div class="searchPanelForm">
-      <button mat-raised-button color="primary" (click)="searchShows()">Search</button>
+      <button mat-raised-button color="primary" [disabled]="validationButton" (click)="searchShows()">Search</button>
     </div>
   </div>
 </form>

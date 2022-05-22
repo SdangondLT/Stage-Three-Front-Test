@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TvShowsService } from '@app-services/tv-shows.service';
 
@@ -11,6 +11,7 @@ export class SearchPanelComponent implements OnInit {
 
   selectedValueDropdown: string;
   @Output() searchShowsEmitter = new EventEmitter<string>();
+  validationButton: boolean;
   showForm: FormGroup;
 
   shows: any[] = [
@@ -35,6 +36,7 @@ export class SearchPanelComponent implements OnInit {
       dropDownForm: ["", Validators.required],
       year: ["", Validators.required]
     });
+    this.validationButton = true;
   }
 
   get getShowToSearch(){
@@ -64,6 +66,25 @@ export class SearchPanelComponent implements OnInit {
     } else {
       console.log(value)
       this.getYear?.disable();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log("changes", changes);
+    if (changes['validationButton']) {
+      this.validationButton = changes['validationButton'].currentValue;
+    }
+  }
+
+  onChangeEventInputSearch(event: any){
+    console.log('this.selectedValueDropdown', this.selectedValueDropdown);
+    console.log('antes del if', event.target.value);
+
+    if(event.target.value && this.selectedValueDropdown === 'series' && this.getYear?.enable()){
+      console.log('2inputs trabajando', event.target.value);
+      this.validationButton =  false;
+    } else if (event.target.value && this.selectedValueDropdown){
+      this.validationButton =  false;
     }
   }
 }
