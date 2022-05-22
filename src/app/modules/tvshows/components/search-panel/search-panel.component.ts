@@ -31,27 +31,39 @@ export class SearchPanelComponent implements OnInit {
   constructor(private showsService: TvShowsService,  private formBuilder: FormBuilder ) {
     this.selectedValueDropdown = '';
     this.showForm = this.formBuilder.group({
-      movie: ["", Validators.required],
-      serie: [""]
+      showToSearch: ["", Validators.required],
+      dropDownForm: ["", Validators.required],
+      year: ["", Validators.required]
     });
   }
 
-  get getMovie(){
-    return this.showForm.get("movie");
+  get getShowToSearch(){
+    return this.showForm.get("showToSearch");
+  }
+
+  get getYear(){
+    return this.showForm.get("year");
   }
 
   searchShows(){
     console.log('searchShows')
-    console.log(this.getMovie!.value)
-    this.searchShowsEmitter.emit(this.getMovie!.value);
+    console.log(this.getShowToSearch!.value)
+    this.searchShowsEmitter.emit(this.getShowToSearch!.value);
   }
 
   ngOnInit(): void {
+    this.getYear?.disable();
   }
 
   changeDropdown(value: any){
     this.selectedValueDropdown = value;
     console.log('entro')
     console.log('valor del dropdown', value)
+    if(value === 'series'){
+      this.getYear?.enable();
+    } else {
+      console.log(value)
+      this.getYear?.disable();
+    }
   }
 }

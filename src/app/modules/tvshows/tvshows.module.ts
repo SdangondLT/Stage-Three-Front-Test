@@ -18,6 +18,7 @@ import {
   MatToolbarModule
 } from '@shared/angular-material/index';
 import { PipesModule } from '@shared/pipes/pipes.module';
+import { DirectivesModule } from '@shared/directives/directives.module';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { PipesModule } from '@shared/pipes/pipes.module';
     MatIconModule,
     MatSelectModule,
     MatToolbarModule,
-    PipesModule
+    PipesModule,
+    DirectivesModule
   ]
 })
 export class TvshowsModule { }

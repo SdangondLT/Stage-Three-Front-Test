@@ -4,12 +4,12 @@
     <div class="searchPanelForm dropdown">
       <mat-form-field appearance="fill">
         <mat-label>New Search</mat-label>
-        <mat-select (selectionChange)="changeDropdown($event.value)" >
+        <mat-select (selectionChange)="changeDropdown($event.value)" formControlName="dropDownForm">
           <mat-option *ngFor="let show of shows" [value]="show.value">
             {{show.viewValue | titlecase}}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="getMovie?.hasError('required')">
+        <mat-error >
           Field is <strong>required</strong>
         </mat-error>
       </mat-form-field>
@@ -17,8 +17,8 @@
     <div class="searchPanelForm">
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>{{"Buscar " | modifyText: selectedValueDropdown  }}</mat-label>
-        <input matInput formControlName="movie">
-        <mat-error *ngIf="getMovie?.hasError('required')">
+        <input matInput formControlName="showToSearch">
+        <mat-error *ngIf="getShowToSearch?.hasError('required')">
           Field is <strong>required</strong>
         </mat-error>
       </mat-form-field>
@@ -26,7 +26,11 @@
     <div class="searchPanelForm">
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Release Year</mat-label>
-        <input matInput formControlName="serie">
+        <input matInput formControlName="year" appDateFormat>
+        <mat-error *ngIf="getYear?.hasError('required')">
+          <!-- el ngIf no es necesario porque funciono el required solo con el validators.required del component -->
+          Field is <strong>required</strong>
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="searchPanelForm">
