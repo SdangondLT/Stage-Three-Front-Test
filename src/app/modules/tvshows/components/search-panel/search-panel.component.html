@@ -2,22 +2,24 @@
   <h2 class="titleCenter">Search Panel</h2>
   <div class="inputsPanel">
     <div class="searchPanelForm dropdown">
+
       <mat-form-field appearance="fill">
-        <mat-label>New Search</mat-label>
-        <mat-select (selectionChange)="changeDropdown($event.value)" formControlName="dropDownForm">
-          <mat-option *ngFor="let show of shows" [value]="show.value">
-            {{show.viewValue | titlecase}}
+        <mat-label>Tipo de Busqueda</mat-label>
+        <mat-select formControlName="dropDownForm">
+          <mat-option *ngFor="let show of shows" [value]="show.label">
+            {{show.valueToShow | titlecase}}
           </mat-option>
         </mat-select>
         <mat-error >
           Field is <strong>required</strong>
         </mat-error>
       </mat-form-field>
+
     </div>
     <div class="searchPanelForm">
       <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>{{"Buscar " | modifyText: selectedValueDropdown  }}</mat-label>
-        <input matInput formControlName="showToSearch" (change)="onChangeEventInputSearch($event)">
+        <mat-label>{{"Buscar " | modifyText: getDropDownForm?.value }}</mat-label>
+        <input matInput formControlName="showToSearch" >
         <mat-error *ngIf="getShowToSearch?.hasError('required')">
           Field is <strong>required</strong>
         </mat-error>
@@ -26,7 +28,8 @@
     <div class="searchPanelForm">
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Release Year</mat-label>
-        <input matInput formControlName="year" appDateFormat>
+        <input matInput formControlName="year" appDateFormat maxlength="9">
+        <!-- una de las propiedades de los inputs es el maxLenght y asi determinamos la long max-->
         <mat-error *ngIf="getYear?.hasError('required')">
           <!-- el ngIf no es necesario porque funciono el required solo con el validators.required del component -->
           Field is <strong>required</strong>
@@ -34,7 +37,7 @@
       </mat-form-field>
     </div>
     <div class="searchPanelForm">
-      <button mat-raised-button color="primary" [disabled]="validationButton" (click)="searchShows()">Search</button>
+      <button mat-raised-button color="primary" [disabled]="showForm.invalid" (click)="searchShows()">Search</button>
     </div>
   </div>
 </form>

@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { ShowsInfoInterface, ShowsListResponse } from '@app-models/shows.model';
+import { ShowsInterface } from '@app-models/shows.model';
 import { TvShowsService } from '@app-services/tv-shows.service';
 
 @Component({
@@ -11,15 +11,15 @@ import { TvShowsService } from '@app-services/tv-shows.service';
 export class SearchViewComponent implements  OnChanges {
 
   viewSearch: FormGroup;
-  showToFavorite: ShowsInfoInterface | undefined;
-  @Input() showsListFromParent: ShowsInfoInterface[];
-  @Output() addFavoritesEmitter = new EventEmitter<ShowsInfoInterface>();
+  showToFavorite: ShowsInterface | undefined;
+  @Input() showsListFromParent: ShowsInterface[];
+  @Output() addFavoritesEmitter = new EventEmitter<ShowsInterface>();
+  dataSource: ShowsInterface[];
 
   constructor(private showsService: TvShowsService,  private fb: FormBuilder) {
     this.showsListFromParent = [];
-
+    this.dataSource = [];
     this.viewSearch = this.fb.group({
-      poster: [""],
       showsArray: this.fb.array([]),
     });
   }
@@ -28,15 +28,15 @@ export class SearchViewComponent implements  OnChanges {
     return this.viewSearch.get('showsArray') as FormArray;
   }
 
-  showsFound (data: ShowsInfoInterface){
+  showsFound (data: ShowsInterface){
     return this.fb.group({
+      id: [data.id],
       poster: [data.poster],
       title: [data.title],
       type: [data.type],
       year: [data.year],
       comments: [data.comments],
-      selected: [data.selected],
-      id: [data.id]
+      selected: [data.selected]
     })
   }
 
@@ -44,28 +44,25 @@ export class SearchViewComponent implements  OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('llego al hijo', this.showsListFromParent)
-    if(changes['showsListFromParent'].currentValue){
-      this.showsListFromParent = changes['showsListFromParent'].currentValue;
-      this.getViewShows.clear();
-      this.showsListFromParent.forEach((shows) => {
-        this.getViewShows.push(this.showsFound(shows))
+    if(changes['showsListFromParent']){
+      this.dataSource = changes['showsListFromParent'].currentValue;
+      this.dataSource.forEach((show: ShowsInterface) => {
+        this.getViewShows.push(this.showsFound(show))
       })
     }
   }
-
-  addFavorites(index: number){
-    this.showToFavorite = {
-      poster: this.getViewShows.at(index).value.poster,
-      title: this.getViewShows.at(index).value.title,
-      type: this.getViewShows.at(index).value.type,
-      year: this.getViewShows.at(index).value.year,
-      id: this.getViewShows.at(index).value.id,
-      comments: this.getViewShows.at(index).value.comments,
-      registrationDate: new Date(),
-      selected: true
-    }
-    this.addFavoritesEmitter.emit(this.showToFavorite);
+//faltan estos apuntos en mi note
+  addFavorites(index: number){//cuando damos click en favoritos obtenemos el index
+//creamos una const para hacer un object.assign de la referencia utilizando el getViewShows
+//el get hace referenciar al formControlName como formArray, como el formControl es un
+//formArray para poder acceder a las posiciones del formArray utilizamos el metodo at
+//le pasamos un index y tenemos accedo a la posicion en especifico y accedemos al value
+//con el value estamos accediendo a toso los campos de showsFound.
+    const payload = Object.assign(this.getViewShows.at(index).value, {
+      registrationDate: new Date(), favorite: true
+    }) //hago un Object.assign porque yo estoy capturando los valores de esa posicion del
+//FormArray y le agrego nuevas propiedades al objeto
+    //luego el evenEmitter para indicarle al Padre cual es el favorito
+    this.addFavoritesEmitter.emit(payload);
   }
-
 }

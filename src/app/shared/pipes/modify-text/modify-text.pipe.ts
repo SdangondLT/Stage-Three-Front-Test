@@ -5,10 +5,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ModifyTextPipe implements PipeTransform {
 
-  transform(value: unknown, ...args: unknown[]): unknown {
-    console.log('value', value)
-    console.log('args', args)
-    return `${value} ${args}` ;
+  transform(value: string, ...args: string[]): unknown {
+//value es lo que esta antes del pipe | en el html
+//'buscar' | modifyText:
+    return `${value} ${args[0]}`;// recordar que los argumentos vienen en array
+    //return `${value} ${args}`;//me falto decirle la posicion cero
   }
 
 }

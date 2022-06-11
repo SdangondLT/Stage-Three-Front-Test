@@ -1,9 +1,15 @@
 <form [formGroup]="viewSearch">
   <h2 class="titleCenter">Search Results</h2>
-  <div formArrayName="showsArray" *ngFor="let viewShow of getViewShows.controls; let i = index">
+  <div
+    formArrayName="showsArray"
+    *ngFor="let viewShow of getViewShows.controls;
+    let i = index"
+  >
     <div [formGroupName]="i" class="eachShow">
       <div class="showImage">
+        <!-- el poster se podria llamar de las dos formas siguientes -->
         <img src="{{showsListFromParent[i].poster}}" alt="">
+        <!-- <img [src]="viewShow.get('poster').value" alt=""> -->
       </div>
       <div class="showDetails">
         <div>

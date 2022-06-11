@@ -1,19 +1,25 @@
-export interface ShowsInterface {
-  error: boolean;
-  data: ShowsListResponse;
-}
-
 export interface ShowsListResponse {
-  results: ShowsInfoInterface[];
-  totalResults: string;
+  error: boolean;
+  data: {
+    results: ShowsInterface[];
+    totalResults: number;
+  }
 }
 
 export interface ShowsInfoInterface {
+  Poster: string;
+  Title: string;
+  Type: string;
+  Year: string;
+  imdbID: string;
+}
+
+export interface ShowsInterface {
+  id: string;
   poster: string;
   title: string;
   type: string;
   year: string;
-  id: string;
   comments: string;
   registrationDate: Date;
   selected: boolean;
@@ -24,5 +30,3 @@ export interface ParametersForApiInterface {
   type: string;
   year: string;
 }
-
-

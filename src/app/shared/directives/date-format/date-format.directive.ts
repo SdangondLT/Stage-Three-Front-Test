@@ -1,14 +1,15 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[appDateFormat]'
+  selector: '[appDateFormat]'//selector de mi directiva
 })
 export class DateFormatDirective {
 
-  constructor( private el: ElementRef) { }
+  constructor( private el: ElementRef) { }//importante el elementRef
+  //este elemento nos referencia el elemento al que la directiva ha sido asociado
   // @ts-ignore
   @HostListener("keyup", ["$event"]) onKeyUp(event: any) {
-
+//hostlistener quien escucha los dif eventos
     const initalValue = this.el.nativeElement.value;
     const key = event.keyCode || event.charCode;
     if (key === 8 || key === 46) return false;
@@ -20,7 +21,7 @@ export class DateFormatDirective {
 
   private formatValue(value: string): string {
     let response = "";
-    let data = value.replace(/[^0-9]*/g, "").slice(0, 8); // Only numbers
+    let data = value.replace(/[^0-9]*/g, "").slice(0, 8); // Only numbers, evito escribir letras
 
     const dataSize = data.length;
     if (dataSize === 5) {

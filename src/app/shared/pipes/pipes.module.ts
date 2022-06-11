@@ -13,6 +13,6 @@ import { PhoneFormatPipe } from './phone-format/phone-format.pipe';
   imports: [
     CommonModule
   ],
-  exports: [ModifyTextPipe]
+  exports: [ModifyTextPipe, PhoneFormatPipe]
 })
 export class PipesModule { }

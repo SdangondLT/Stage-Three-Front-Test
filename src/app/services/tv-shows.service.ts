@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, pluck } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from "@environments/environment";
-import { ShowsInfoInterface, ShowsInterface, ShowsListResponse } from '@app-models/shows.model';
+import { ShowsInfoInterface, ShowsListResponse } from '@app-models/shows.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,32 +11,41 @@ export class TvShowsService {
 
   constructor(private http: HttpClient) { }
 
-  public getTvShowsFromApi(query: string, type: string, year: string): Observable<ShowsInterface> {
-    console.log('entrando al servicio');
+  public getTvShowsFromApi(query: string, type: string, year: string): Observable<ShowsListResponse>
+  {
     const url = `${environment.URL}/?s=${query}&type=${type}&y=${year}&apikey=${environment.OMDB_APIKEY}`;
-    console.log('entrando a URL', url);
-    return this.http.get<any>(url).pipe(map(dataApi => {
-      dataApi.error = dataApi['Response'];
-      dataApi.data = {};
-      dataApi.data.results = dataApi['Search'];;
-      dataApi.data.totalResults = dataApi['totalResults'];
-      delete dataApi['Response'];
-      delete dataApi['Search'];
-      delete dataApi['totalResults']
-      dataApi.data.results.map((element : any) => {
-        element.title = element.Title;
-        delete element.Title;
-        element.poster = element.Poster;
-        delete element.Poster;
-        element.type = element.Type;
-        delete element.Type;
-        element.year = element.Year;
-        delete element.Year;
-        element.id = element.imdbID;
-        delete element.imdbID;
-        return Object.assign(element, {selected : false}, {comments : ''})
+    return this.http.get<any>(url).pipe(
+      map( dataApi => {
+      //con la ayuda de rxjs podemos aplicar los operadores como pipe y asi mod la data
+      //para devolverle al observaable una estructura diferente
+        const mapToResults = dataApi.Search?.map( (element: ShowsInfoInterface) => {
+          return {
+            id: element.imdbID,
+            poster: element.Poster,
+            title: element.Title,
+            type: element.Type,
+            year: element.Year,
+            favorite: false,
+            selectedDate: '',
+            comments: ''
+          }
+        });
+
+        return {
+          //las propiedades de este obj serab las indicadas en las instrucciones
+          error: dataApi.Response !== "True",//esta condicion me devuelve un bool
+          //si viene true o si viene false
+          data: {
+            results: mapToResults,
+            totalResults: Number(dataApi.totalResults)
+            //totalResults: +dataApi.totalResults
+            //totalResults: Number(dataApi.totalResults)
+            //las dos anteriores son opciones para cambiar el tipo de dato de string a number
+          }
+        }
+//El delete no es necesario, yo puedo tomar los datos, crear datos nuevos a partir de los viejos
+//con otra estructura
       })
-      return dataApi;
-    }));
+    );
   }
 }
