@@ -1,18 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModifyTextPipe } from './modify-text/modify-text.pipe';
-import { PhoneFormatPipe } from './phone-format/phone-format.pipe';
-
-
 
 @NgModule({
   declarations: [
-    ModifyTextPipe,
-    PhoneFormatPipe
+    ModifyTextPipe
   ],
   imports: [
     CommonModule
   ],
-  exports: [ModifyTextPipe, PhoneFormatPipe]
+  exports: [ModifyTextPipe]
 })
 export class PipesModule { }

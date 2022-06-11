@@ -16,8 +16,6 @@ export class TvShowsService {
     const url = `${environment.URL}/?s=${query}&type=${type}&y=${year}&apikey=${environment.OMDB_APIKEY}`;
     return this.http.get<any>(url).pipe(
       map( dataApi => {
-      //con la ayuda de rxjs podemos aplicar los operadores como pipe y asi mod la data
-      //para devolverle al observaable una estructura diferente
         const mapToResults = dataApi.Search?.map( (element: ShowsInfoInterface) => {
           return {
             id: element.imdbID,
@@ -32,19 +30,12 @@ export class TvShowsService {
         });
 
         return {
-          //las propiedades de este obj serab las indicadas en las instrucciones
-          error: dataApi.Response !== "True",//esta condicion me devuelve un bool
-          //si viene true o si viene false
+          error: dataApi.Response !== "True",
           data: {
             results: mapToResults,
             totalResults: Number(dataApi.totalResults)
-            //totalResults: +dataApi.totalResults
-            //totalResults: Number(dataApi.totalResults)
-            //las dos anteriores son opciones para cambiar el tipo de dato de string a number
           }
         }
-//El delete no es necesario, yo puedo tomar los datos, crear datos nuevos a partir de los viejos
-//con otra estructura
       })
     );
   }

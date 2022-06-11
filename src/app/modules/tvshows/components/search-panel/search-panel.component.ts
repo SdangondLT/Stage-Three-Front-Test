@@ -42,8 +42,7 @@ export class SearchPanelComponent implements OnInit {
     ];
   }
 
-  get getDropDownForm(){//estos get que me dan acceso a los formcontrol son muy importantes porque siempre
-    //seran utiles para acceder a los valores de los formcontrol
+  get getDropDownForm(){
     return this.showForm.get("dropDownForm");
   }
 
@@ -56,28 +55,15 @@ export class SearchPanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //para escuchar los cambios de un formulario reactivo o de un formcontrol
-    //lo mejor es usar observables en el ngOnInit como valueChanges y si
-    //usamos observables podemos suscribirnos a el y conocer los cambios
     this.getDropDownForm?.valueChanges.subscribe((result) => {
       if(result == 'series') {
-        this.getYear?.enable();//casi siempre debo usar los metodos get
-        this.getYear?.setValidators([Validators.required, Validators.maxLength(9)]);//setvalidator me permite agregar validadores al formcontrol
-        //hay 2 metodos, setvalidator y addValidators, la dif es q el addValidators no elimina los validadores
-        //antiguos que ya tenga seteado el formcontrol pero setvalidator borra validator que ya tenga el formcontrol
-        //y deja los nuevos que esta agregando. se necesita usar un array
-
-        //como el input year estaba desabilitado no era bueno establecer validators desde antes, es mejor practica
-        //agregar validators luego de que el usuario habilite el input year porque desea acceder a esa info
-
-      } else {//con esto nos aseguramos de desabilitar el input year si asi lo desea el usuario
+        this.getYear?.enable();
+        this.getYear?.setValidators([Validators.required, Validators.maxLength(9)]);
+      } else {
         this.getYear?.disable();
-        this.getYear?.clearValidators();//este clear ps limpia o borra los validators
-        //para evitar problemas de validators
+        this.getYear?.clearValidators();
       }
-      this.getYear?.updateValueAndValidity();//este metodo updateValueAndValidity lo tiene el formulario reactivo
-      //hace consciente al formulario reactivo de que un campo cambio de valor y de validacion
-      //asi actualice su estado
+      this.getYear?.updateValueAndValidity();
     })
   }
 
